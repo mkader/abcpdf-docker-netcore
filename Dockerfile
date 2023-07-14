@@ -2,12 +2,16 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
+COPY ["ABCPdfDemo/ABCPdf.Demo.csproj", "ABCPdfDemo/"]
+COPY ["ABCPdfDemo/ABCpdf.dll", "/usr/local/lib/"]
+COPY ["ABCPdfDemo/ABCpdf12-64.dll", "/usr/local/lib/"]
 EXPOSE 80
 EXPOSE 443
 
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /
-COPY ["ABCPdfDemo/ABCPdf.Demo.csproj", "ABCPdfDemo/"]
+
 RUN dotnet restore "ABCPdfDemo/ABCPdf.Demo.csproj"
 COPY . .
 WORKDIR "/ABCPdfDemo"
